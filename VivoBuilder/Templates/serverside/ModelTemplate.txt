@@ -1,0 +1,11 @@
+﻿using System;
+using System.ComoponentModel.DataAnnotation;
+using GenericBE;
+
+namespace [NAMESPACE]
+{
+	public class [CLASS-NAME] : BaseEntity
+	{
+		[CLASS-PROPERTIES]
+	}
+}

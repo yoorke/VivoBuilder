@@ -1,0 +1,5 @@
+﻿		
+		[REQUIRED]
+		[STRING-LENGTH]
+		[SqlFieldNameAttribute("[FIELD-NAME]")]
+		public [PROPERTY-TYPE] [PROPERTY-NAME] { get; set; }

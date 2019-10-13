@@ -1,0 +1,10 @@
+﻿using System;
+using GenericBE;
+
+namespace [NAMESPACE]
+{
+	public class [CLASS-NAME] : BaseViewEntity
+	{
+		[CLASS-PROPERTIES]
+	}
+}
