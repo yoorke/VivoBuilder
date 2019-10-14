@@ -29,12 +29,12 @@ namespace VivoBuilder.BL
             "org_jed_id"
         };
 
-        public ArrayList LoadDatabaseTables()
+        public List<Table> LoadDatabaseTables()
         {
             try
             {
                 DataTable dtSchema;
-                ArrayList tables = new ArrayList();
+                List<Table> tables = new List<Table>();
 
                 if (Properties.Settings.Default.ConnString != string.Empty)
                 {
@@ -45,7 +45,7 @@ namespace VivoBuilder.BL
                         dtSchema = conn.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, new Object[] { null, null, null, "TABLE" });
 
                         for (int i = 0; i < dtSchema.Rows.Count - 1; i++)
-                            tables.Add(dtSchema.Rows[i].ItemArray[2].ToString());
+                            tables.Add(new Table(dtSchema.Rows[i].ItemArray[1].ToString(), dtSchema.Rows[i].ItemArray[2].ToString()));
 
                         
                     }
@@ -53,13 +53,13 @@ namespace VivoBuilder.BL
 
                 return tables;
             }
-            catch (Exception ex)
+            catch
             {
                 throw;
             }
         }
 
-        public List<TableColumn> GetTableColumns(string tableName, string languageSuffix)
+        public List<TableColumn> GetTableColumns(Table table, string languageSuffix)
         {
             DataTable tableFields;
             DataTable languageTableFields;
@@ -70,13 +70,13 @@ namespace VivoBuilder.BL
             {
                 conn.Open();
 
-                tableFields = conn.GetOleDbSchemaTable(OleDbSchemaGuid.Columns, new object[] { null, null, tableName });
+                tableFields = conn.GetOleDbSchemaTable(OleDbSchemaGuid.Columns, new object[] { null, null, table.Name });
 
                 if (!languageSuffix.Equals(string.Empty))
                 {
-                    languageTableFields = conn.GetOleDbSchemaTable(OleDbSchemaGuid.Columns, new object[] { null, null, tableName + "_" + languageSuffix });
+                    languageTableFields = conn.GetOleDbSchemaTable(OleDbSchemaGuid.Columns, new object[] { null, null, table.Name + "_" + languageSuffix });
                     foreach (DataRow row in languageTableFields.Rows)
-                        if (!row["COLUMN_NAME"].ToString().Equals(tableName + "_id"))
+                        if (!row["COLUMN_NAME"].ToString().Equals(table.Name + "_id"))
                             tableFields.Rows.Add(row.ItemArray);
                 }
 
@@ -84,7 +84,7 @@ namespace VivoBuilder.BL
                 {
                     if (!excludedColumns.Contains(row["COLUMN_NAME"].ToString()))
                     {
-                        DataTable columnData = getTableColumnData(row["COLUMN_NAME"].ToString(), tableName);
+                        DataTable columnData = getTableColumnData(row["COLUMN_NAME"].ToString(), table.Name);
                         columns.Add(new TableColumn(
                                             row["COLUMN_NAME"].ToString(),
                                             row["TABLE_NAME"].ToString(),

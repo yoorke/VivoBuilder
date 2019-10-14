@@ -32,15 +32,21 @@
             this.btnSelectSolution = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.txtSolutionFilename = new System.Windows.Forms.TextBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.grpProjects = new System.Windows.Forms.GroupBox();
             this.cmbModelView = new System.Windows.Forms.ComboBox();
             this.cmbModel = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.cmbBusinessLogic = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.cmbBusinessLogicInterfaces = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.cmbWebAPI = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
+            this.grpProjects.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -82,19 +88,25 @@
             this.txtSolutionFilename.Size = new System.Drawing.Size(468, 20);
             this.txtSolutionFilename.TabIndex = 0;
             // 
-            // groupBox2
+            // grpProjects
             // 
-            this.groupBox2.Controls.Add(this.cmbModelView);
-            this.groupBox2.Controls.Add(this.cmbModel);
-            this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Controls.Add(this.label2);
-            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox2.Location = new System.Drawing.Point(0, 84);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(619, 154);
-            this.groupBox2.TabIndex = 1;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Projects";
+            this.grpProjects.Controls.Add(this.cmbWebAPI);
+            this.grpProjects.Controls.Add(this.label6);
+            this.grpProjects.Controls.Add(this.cmbBusinessLogicInterfaces);
+            this.grpProjects.Controls.Add(this.label5);
+            this.grpProjects.Controls.Add(this.cmbBusinessLogic);
+            this.grpProjects.Controls.Add(this.label4);
+            this.grpProjects.Controls.Add(this.cmbModelView);
+            this.grpProjects.Controls.Add(this.cmbModel);
+            this.grpProjects.Controls.Add(this.label3);
+            this.grpProjects.Controls.Add(this.label2);
+            this.grpProjects.Dock = System.Windows.Forms.DockStyle.Top;
+            this.grpProjects.Location = new System.Drawing.Point(0, 84);
+            this.grpProjects.Name = "grpProjects";
+            this.grpProjects.Size = new System.Drawing.Size(619, 212);
+            this.grpProjects.TabIndex = 1;
+            this.grpProjects.TabStop = false;
+            this.grpProjects.Text = "Projects";
             // 
             // cmbModelView
             // 
@@ -107,7 +119,7 @@
             // cmbModel
             // 
             this.cmbModel.FormattingEnabled = true;
-            this.cmbModel.Location = new System.Drawing.Point(82, 33);
+            this.cmbModel.Location = new System.Drawing.Point(82, 32);
             this.cmbModel.Name = "cmbModel";
             this.cmbModel.Size = new System.Drawing.Size(468, 21);
             this.cmbModel.TabIndex = 6;
@@ -115,7 +127,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 73);
+            this.label3.Location = new System.Drawing.Point(12, 69);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(64, 13);
             this.label3.TabIndex = 2;
@@ -144,12 +156,63 @@
             this.textBox2.Size = new System.Drawing.Size(468, 20);
             this.textBox2.TabIndex = 3;
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(53, 102);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(23, 13);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "BL:";
+            // 
+            // cmbBusinessLogic
+            // 
+            this.cmbBusinessLogic.FormattingEnabled = true;
+            this.cmbBusinessLogic.Location = new System.Drawing.Point(82, 103);
+            this.cmbBusinessLogic.Name = "cmbBusinessLogic";
+            this.cmbBusinessLogic.Size = new System.Drawing.Size(468, 21);
+            this.cmbBusinessLogic.TabIndex = 9;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(50, 135);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(26, 13);
+            this.label5.TabIndex = 10;
+            this.label5.Text = "IBL:";
+            // 
+            // cmbBusinessLogicInterfaces
+            // 
+            this.cmbBusinessLogicInterfaces.FormattingEnabled = true;
+            this.cmbBusinessLogicInterfaces.Location = new System.Drawing.Point(82, 136);
+            this.cmbBusinessLogicInterfaces.Name = "cmbBusinessLogicInterfaces";
+            this.cmbBusinessLogicInterfaces.Size = new System.Drawing.Size(468, 21);
+            this.cmbBusinessLogicInterfaces.TabIndex = 11;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(26, 168);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(50, 13);
+            this.label6.TabIndex = 12;
+            this.label6.Text = "WebAPI:";
+            // 
+            // cmbWebAPI
+            // 
+            this.cmbWebAPI.FormattingEnabled = true;
+            this.cmbWebAPI.Location = new System.Drawing.Point(82, 168);
+            this.cmbWebAPI.Name = "cmbWebAPI";
+            this.cmbWebAPI.Size = new System.Drawing.Size(468, 21);
+            this.cmbWebAPI.TabIndex = 13;
+            // 
             // ExportOptions
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(619, 574);
-            this.Controls.Add(this.groupBox2);
+            this.ClientSize = new System.Drawing.Size(619, 396);
+            this.Controls.Add(this.grpProjects);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
@@ -158,8 +221,8 @@
             this.Text = "Export options";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.grpProjects.ResumeLayout(false);
+            this.grpProjects.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -171,12 +234,18 @@
         private System.Windows.Forms.Button btnSelectSolution;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtSolutionFilename;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox grpProjects;
         private System.Windows.Forms.ComboBox cmbModelView;
         private System.Windows.Forms.ComboBox cmbModel;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.ComboBox cmbBusinessLogic;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox cmbWebAPI;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ComboBox cmbBusinessLogicInterfaces;
+        private System.Windows.Forms.Label label5;
     }
 }

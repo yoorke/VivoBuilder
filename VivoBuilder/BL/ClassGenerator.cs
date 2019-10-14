@@ -8,16 +8,16 @@ namespace VivoBuilder.BL
 {
     public class ClassGenerator
     {
-        public string GenerateModelClass(string tableName, string languageTableSuffix, string namespaceName)
+        public string GenerateModelClass(Table table, string languageTableSuffix, string namespaceName)
         {
             Dictionary<string, string> propertyRT = new Dictionary<string, string>();
             Dictionary<string, string> classRT = new Dictionary<string, string>();
-            List<TableColumn> tableColumns = new DatabaseRepository().GetTableColumns(tableName, languageTableSuffix);
+            List<TableColumn> tableColumns = new DatabaseRepository().GetTableColumns(table, languageTableSuffix);
 
             StringBuilder classProperties = new StringBuilder();
 
-            classRT.Add("NAMESPACE", namespaceName);
-            classRT.Add("CLASS-NAME", new Common().ToPascalCase(tableName));
+            classRT.Add("NAMESPACE", namespaceName + ".Models");
+            classRT.Add("CLASS-NAME", new Common().ToPascalCase(table.Name));
 
             foreach (TableColumn column in tableColumns)
             {
@@ -38,17 +38,17 @@ namespace VivoBuilder.BL
             //return string.Empty;
         }
 
-        public string GenerateModelViewClass(string tableName, string languageTableSuffix, string namespaceName)
+        public string GenerateModelViewClass(Table table, string languageTableSuffix, string namespaceName)
         {
             Dictionary<string, string> classRT = new Dictionary<string, string>();
             Dictionary<string, string> propertyRT = new Dictionary<string, string>();            
-            List<TableColumn> tableColumns = new DatabaseRepository().GetTableColumns(tableName, languageTableSuffix);
+            List<TableColumn> tableColumns = new DatabaseRepository().GetTableColumns(table, languageTableSuffix);
             bool isForeignKey = false;
 
             StringBuilder classProperties = new StringBuilder();
 
-            classRT.Add("NAMESPACE", namespaceName);
-            classRT.Add("CLASS-NAME", new Common().ToPascalCase(tableName) + "View");
+            classRT.Add("NAMESPACE", namespaceName + ".Models");
+            classRT.Add("CLASS-NAME", new Common().ToPascalCase(table.Name) + "View");
 
             foreach(TableColumn column in tableColumns)
             {
