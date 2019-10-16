@@ -11,7 +11,9 @@ namespace VivoBuilder.Models
         public string ClassName { get; set; }
         public string Namespace { get; set; }
         public Project Project { get; set; }
-        public Table Table { get; set; }
+        public string ClassContent { get; set; }
+        public string Schema { get; set; }
+        //public Table Table { get; set; }
 
         public ClassOptions()
         {
@@ -36,10 +38,22 @@ namespace VivoBuilder.Models
             return this;
         }
 
-        public ClassOptions SetTable(Table table)
+        public ClassOptions SetClassContent(string classContent)
         {
-            this.Table = table;
+            this.ClassContent = classContent;
             return this;
         }
+
+        public ClassOptions SetSchema(string schema)
+        {
+            this.Schema = schema;
+            return this;
+        }
+
+        //public ClassOptions SetTable(Table table)
+        //{
+            //this.Table = table;
+            //return this;
+        //}
     }
 }

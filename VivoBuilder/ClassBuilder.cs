@@ -18,7 +18,7 @@ namespace VivoBuilder
             InitializeComponent();
         }
 
-        Dictionary<string, Dictionary<string, string>> GeneratedClasses = new Dictionary<string, Dictionary<string, string>>();
+        Dictionary<string, Dictionary<Table, ClassOptions>> GeneratedClasses = new Dictionary<string, Dictionary<Table, ClassOptions>>();
         //Dictionary<string, string> ModelClasses = new Dictionary<string, string>();
         
 
@@ -26,8 +26,8 @@ namespace VivoBuilder
         {
             this.WindowState = FormWindowState.Maximized;
 
-            GeneratedClasses.Add("ModelClasses", new Dictionary<string, string>());
-            GeneratedClasses.Add("ModelViewClasses", new Dictionary<string, string>());
+            GeneratedClasses.Add("ModelClasses", new Dictionary<Table, ClassOptions>());
+            GeneratedClasses.Add("ModelViewClasses", new Dictionary<Table, ClassOptions>());
 
             loadDataTables();
         }
@@ -63,7 +63,7 @@ namespace VivoBuilder
 
                     GeneratedClasses["ModelClasses"]
                         //.Add(lstDatabaseTables.CheckedItems[i].ToString(), new ClassGenerator().GenerateModelClass(lstDatabaseTables.CheckedItems[i].ToString(), tableSchema, txtLanguageTableSuffix.Text, txtNamespace.Text));
-                        .Add(table.Name, new ClassGenerator().GenerateModelClass(table, txtLanguageTableSuffix.Text, txtNamespace.Text));
+                        .Add(table, new ClassGenerator().GenerateModelClass(table, txtLanguageTableSuffix.Text, txtNamespace.Text));
 
                     GeneratedClasses["ModelViewClasses"]
                         //.Add(lstDatabaseTables.CheckedItems[i].ToString(), new ClassGenerator().GenerateModelViewClass(lstDatabaseTables.CheckedItems[i].ToString(), tableSchema, txtLanguageTableSuffix.Text, txtNamespace.Text));

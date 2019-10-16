@@ -8,16 +8,22 @@ namespace VivoBuilder.BL
 {
     public class ClassGenerator
     {
-        public string GenerateModelClass(Table table, string languageTableSuffix, string namespaceName)
+        public ClassOptions GenerateModelClass(Table table, string languageTableSuffix, string namespaceName)
         {
+            ClassOptions classOptions = new ClassOptions();
+            classOptions
+                .SetClassName(new Common().ToPascalCase(table.Name))
+                .SetNamespace(namespaceName + ".Models")
+                .SetSchema(table.Schema);
+
             Dictionary<string, string> propertyRT = new Dictionary<string, string>();
             Dictionary<string, string> classRT = new Dictionary<string, string>();
             List<TableColumn> tableColumns = new DatabaseRepository().GetTableColumns(table, languageTableSuffix);
 
             StringBuilder classProperties = new StringBuilder();
 
-            classRT.Add("NAMESPACE", namespaceName + ".Models");
-            classRT.Add("CLASS-NAME", new Common().ToPascalCase(table.Name));
+            classRT.Add("NAMESPACE", classOptions.Namespace);
+            classRT.Add("CLASS-NAME", classOptions.ClassName);
 
             foreach (TableColumn column in tableColumns)
             {
@@ -33,7 +39,9 @@ namespace VivoBuilder.BL
 
             classRT.Add("CLASS-PROPERTIES", classProperties.ToString());
 
-            return new TemplateHandler().GenerateContent(classRT, "ModelTemplate");
+            classOptions.SetClassContent(new TemplateHandler().GenerateContent(classRT, "ModelTemplate"));
+
+            return classOptions;
 
             //return string.Empty;
         }
