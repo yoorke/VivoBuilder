@@ -49,26 +49,34 @@ namespace VivoBuilder
             {
                 //populateProjects();
 
-                GeneratedClasses["ModelClasses"].Clear();
-                GeneratedClasses["ModelViewClasses"].Clear();
+                //GeneratedClasses["ModelClasses"].Clear();
+                //GeneratedClasses["ModelViewClasses"].Clear();
 
-                for(int i = 0; i < lstDatabaseTables.CheckedItems.Count; i++)
+
+                List<Table> tableList = new List<Table>();
+                for (int i = 0; i < lstDatabaseTables.CheckedItems.Count; i++)
                 {
                     //string tableName = lstDatabaseTables.CheckedItems[i].ToString().Substring(lstDatabaseTables.CheckedItems[i].ToString().IndexOf('.') + 1);
                     //string tableSchema = lstDatabaseTables.CheckedItems[i].ToString().Substring(0, lstDatabaseTables.CheckedItems[i].ToString().IndexOf('.'));
-                    Table table = ((Table)lstDatabaseTables.CheckedItems[i]);
+                    //Table table = ((Table)lstDatabaseTables.CheckedItems[i]);
+
+                    tableList.Add(((Table)lstDatabaseTables.CheckedItems[i]));
 
                     //ClassOptions classOptions = new ClassOptions();
                     //classOptions.SetTable((Table)lstDatabaseTables.CheckedItems[i]);
 
-                    GeneratedClasses["ModelClasses"]
-                        //.Add(lstDatabaseTables.CheckedItems[i].ToString(), new ClassGenerator().GenerateModelClass(lstDatabaseTables.CheckedItems[i].ToString(), tableSchema, txtLanguageTableSuffix.Text, txtNamespace.Text));
-                        .Add(table, new ClassGenerator().GenerateModelClass(table, txtLanguageTableSuffix.Text, txtNamespace.Text));
+                    //GeneratedClasses["ModelClasses"]
+                    //.Add(lstDatabaseTables.CheckedItems[i].ToString(), new ClassGenerator().GenerateModelClass(lstDatabaseTables.CheckedItems[i].ToString(), tableSchema, txtLanguageTableSuffix.Text, txtNamespace.Text));
+                    //.Add(table, new ClassGenerator().GenerateModelClass(table, txtLanguageTableSuffix.Text, txtNamespace.Text));
 
-                    GeneratedClasses["ModelViewClasses"]
-                        //.Add(lstDatabaseTables.CheckedItems[i].ToString(), new ClassGenerator().GenerateModelViewClass(lstDatabaseTables.CheckedItems[i].ToString(), tableSchema, txtLanguageTableSuffix.Text, txtNamespace.Text));
-                        .Add(table.Name, new ClassGenerator().GenerateModelViewClass(table, txtLanguageTableSuffix.Text, txtNamespace.Text));
+                    //GeneratedClasses["ModelViewClasses"]
+                    //.Add(lstDatabaseTables.CheckedItems[i].ToString(), new ClassGenerator().GenerateModelViewClass(lstDatabaseTables.CheckedItems[i].ToString(), tableSchema, txtLanguageTableSuffix.Text, txtNamespace.Text));
+                    //.Add(table, new ClassGenerator().GenerateModelViewClass(table, txtLanguageTableSuffix.Text, txtNamespace.Text));
+
+                    
                 }
+
+                GeneratedClasses = new ClassGenerator().GenerateClasses(tableList, txtLanguageTableSuffix.Text, txtNamespace.Text);
 
                 showGeneratedClasses(lstDatabaseTables.SelectedIndex);
             }
@@ -86,10 +94,10 @@ namespace VivoBuilder
 
                 //int index = 0;
                 //int classIndex = 0;
-                foreach (KeyValuePair<string, Dictionary<string, string>> classList in GeneratedClasses)
+                foreach (KeyValuePair<string, Dictionary<Table, ClassOptions>> classList in GeneratedClasses)
                 {
-                    if (classList.Value.ContainsKey(((Table)lstDatabaseTables.Items[index]).Name))
-                        ((TextBox)((TabPage)tbcGeneratedClasses.TabPages["tbp" + classList.Key]).Controls.Find("txt" + classList.Key, true)[0]).Text = classList.Value[((Table)lstDatabaseTables.Items[index]).Name];
+                    if (classList.Value.ContainsKey(((Table)lstDatabaseTables.Items[index])))
+                        ((TextBox)((TabPage)tbcGeneratedClasses.TabPages["tbp" + classList.Key]).Controls.Find("txt" + classList.Key, true)[0]).Text = classList.Value[((Table)lstDatabaseTables.Items[index])].ClassContent;
 
                     //classIndex++;
                 }

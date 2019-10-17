@@ -8,7 +8,26 @@ namespace VivoBuilder.BL
 {
     public class ClassGenerator
     {
-        public ClassOptions GenerateModelClass(Table table, string languageTableSuffix, string namespaceName)
+        public Dictionary<string, Dictionary<Table, ClassOptions>> GenerateClasses(List<Table> tableList, string languageTableSuffix, string namespaceName)
+        {
+            Dictionary<string, Dictionary<Table, ClassOptions>> generatedClasses = new Dictionary<string, Dictionary<Table, ClassOptions>>();
+            generatedClasses.Add("ModelClasses", new Dictionary<Table, ClassOptions>());
+            generatedClasses.Add("ModelViewClasses", new Dictionary<Table, ClassOptions>());
+            //generatedClasses["ModelClasses"].Clear();
+            //generatedClasses["ModelViewClasses"].Clear();
+
+            foreach(Table table in tableList)
+            {
+                List<TableColumn> tableColumns = new DatabaseRepository().GetTableColumns(table, languageTableSuffix);
+
+                generatedClasses["ModelClasses"]
+                    .Add(table, GenerateModelClass(table, languageTableSuffix, namespaceName, tableColumns));
+            }
+
+            return generatedClasses;
+        }
+
+        public ClassOptions GenerateModelClass(Table table, string languageTableSuffix, string namespaceName, List<TableColumn> tableColumns)
         {
             ClassOptions classOptions = new ClassOptions();
             classOptions
@@ -18,7 +37,7 @@ namespace VivoBuilder.BL
 
             Dictionary<string, string> propertyRT = new Dictionary<string, string>();
             Dictionary<string, string> classRT = new Dictionary<string, string>();
-            List<TableColumn> tableColumns = new DatabaseRepository().GetTableColumns(table, languageTableSuffix);
+            //List<TableColumn> tableColumns = new DatabaseRepository().GetTableColumns(table, languageTableSuffix);
 
             StringBuilder classProperties = new StringBuilder();
 
@@ -46,8 +65,13 @@ namespace VivoBuilder.BL
             //return string.Empty;
         }
 
-        public string GenerateModelViewClass(Table table, string languageTableSuffix, string namespaceName)
+        public ClassOptions GenerateModelViewClass(Table table, string languageTableSuffix, string namespaceName)
         {
+            ClassOptions classOptions = new ClassOptions();
+            classOptions.SetClassName(new Common().ToPascalCase(table.Name) + "View")
+                .SetNamespace(namespaceName + ".Models")
+                .SetSchema(table.Schema);
+
             Dictionary<string, string> classRT = new Dictionary<string, string>();
             Dictionary<string, string> propertyRT = new Dictionary<string, string>();            
             List<TableColumn> tableColumns = new DatabaseRepository().GetTableColumns(table, languageTableSuffix);
@@ -55,8 +79,8 @@ namespace VivoBuilder.BL
 
             StringBuilder classProperties = new StringBuilder();
 
-            classRT.Add("NAMESPACE", namespaceName + ".Models");
-            classRT.Add("CLASS-NAME", new Common().ToPascalCase(table.Name) + "View");
+            classRT.Add("NAMESPACE", classOptions.Namespace);
+            classRT.Add("CLASS-NAME", classOptions.ClassName);
 
             foreach(TableColumn column in tableColumns)
             {
@@ -72,7 +96,15 @@ namespace VivoBuilder.BL
 
             classRT.Add("CLASS-PROPERTIES", classProperties.ToString());
 
-            return new TemplateHandler().GenerateContent(classRT, "ModelViewTemplate");
+            classOptions.SetClassContent(new TemplateHandler().GenerateContent(classRT, "ModelViewTemplate"));
+
+            return classOptions;
+        }
+
+        private Dictionary<string, string> getBaseClassRT(Table table, string namespaceName)
+        {
+            Dictionary<string, string> classRT = new Dictionary<string, string>();
+            return classRT;
         }
     }
 }

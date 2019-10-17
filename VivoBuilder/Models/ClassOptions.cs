@@ -22,7 +22,7 @@ namespace VivoBuilder.Models
 
         public ClassOptions SetClassName(string className)
         {
-            this.ClassName = ClassName;
+            this.ClassName = className;
             return this;
         }
 

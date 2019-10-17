@@ -17,11 +17,11 @@ namespace VivoBuilder.Models
             this.ID = new Random().Next(1, 1000000);
         }
 
-        public Table(string schema, string name)
+        public Table(string schema, string name, Random random)
         {
             this.Schema = schema;
             this.Name = name;
-            this.ID = new Random().Next(1, 1000000);
+            this.ID = random.Next(1000, 1000000);
         }
 
         public string FullName { get { return Schema + '.' + Name; } }

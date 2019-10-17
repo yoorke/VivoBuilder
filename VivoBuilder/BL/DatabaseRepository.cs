@@ -43,9 +43,10 @@ namespace VivoBuilder.BL
                         conn.Open();
 
                         dtSchema = conn.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, new Object[] { null, null, null, "TABLE" });
+                        Random random = new Random();
 
                         for (int i = 0; i < dtSchema.Rows.Count - 1; i++)
-                            tables.Add(new Table(dtSchema.Rows[i].ItemArray[1].ToString(), dtSchema.Rows[i].ItemArray[2].ToString()));
+                            tables.Add(new Table(dtSchema.Rows[i].ItemArray[1].ToString(), dtSchema.Rows[i].ItemArray[2].ToString(), random));
 
                         
                     }
