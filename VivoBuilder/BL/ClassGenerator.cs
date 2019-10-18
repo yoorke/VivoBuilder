@@ -8,11 +8,18 @@ namespace VivoBuilder.BL
 {
     public class ClassGenerator
     {
-        public Dictionary<string, Dictionary<Table, ClassOptions>> GenerateClasses(List<Table> tableList, string languageTableSuffix, string namespaceName)
+        public Dictionary<string, Dictionary<Table, ClassOptions>> GenerateClasses(
+                List<Table> tableList, 
+                string languageTableSuffix, 
+                string namespaceName, 
+                string solutionFilename
+            )
         {
             Dictionary<string, Dictionary<Table, ClassOptions>> generatedClasses = new Dictionary<string, Dictionary<Table, ClassOptions>>();
             generatedClasses.Add("ModelClasses", new Dictionary<Table, ClassOptions>());
             generatedClasses.Add("ModelViewClasses", new Dictionary<Table, ClassOptions>());
+
+            List<Project> projects = new ProjectBL().GetProjects(solutionFilename);
             //generatedClasses["ModelClasses"].Clear();
             //generatedClasses["ModelViewClasses"].Clear();
 
@@ -21,19 +28,23 @@ namespace VivoBuilder.BL
                 List<TableColumn> tableColumns = new DatabaseRepository().GetTableColumns(table, languageTableSuffix);
 
                 generatedClasses["ModelClasses"]
-                    .Add(table, GenerateModelClass(table, languageTableSuffix, namespaceName, tableColumns));
+                    .Add(table, GenerateModelClass(table, languageTableSuffix, namespaceName, tableColumns, projects));
+
+                generatedClasses["ModelViewClasses"]
+                    .Add(table, GenerateModelViewClass(table, languageTableSuffix, namespaceName, tableColumns, projects));
             }
 
             return generatedClasses;
         }
 
-        public ClassOptions GenerateModelClass(Table table, string languageTableSuffix, string namespaceName, List<TableColumn> tableColumns)
+        public ClassOptions GenerateModelClass(Table table, string languageTableSuffix, string namespaceName, List<TableColumn> tableColumns, List<Project> projects)
         {
             ClassOptions classOptions = new ClassOptions();
             classOptions
                 .SetClassName(new Common().ToPascalCase(table.Name))
                 .SetNamespace(namespaceName + ".Models")
-                .SetSchema(table.Schema);
+                .SetSchema(table.Schema)
+                .SetProject(projects.Find(project => (project.Name.Contains("Models") && table.Schema == "dbo") || (project.Name.Contains("Models") && project.Name.Contains(table.Schema))));
 
             Dictionary<string, string> propertyRT = new Dictionary<string, string>();
             Dictionary<string, string> classRT = new Dictionary<string, string>();
@@ -65,16 +76,17 @@ namespace VivoBuilder.BL
             //return string.Empty;
         }
 
-        public ClassOptions GenerateModelViewClass(Table table, string languageTableSuffix, string namespaceName)
+        public ClassOptions GenerateModelViewClass(Table table, string languageTableSuffix, string namespaceName, List<TableColumn> tableColumns, List<Project> projects)
         {
             ClassOptions classOptions = new ClassOptions();
             classOptions.SetClassName(new Common().ToPascalCase(table.Name) + "View")
                 .SetNamespace(namespaceName + ".Models")
-                .SetSchema(table.Schema);
+                .SetSchema(table.Schema)
+                .SetProject(projects.Find(project => (project.Name.Contains("Models") && table.Schema == "dbo") || (project.Name.Contains("Models") && project.Name.Contains(table.Schema))));
 
             Dictionary<string, string> classRT = new Dictionary<string, string>();
             Dictionary<string, string> propertyRT = new Dictionary<string, string>();            
-            List<TableColumn> tableColumns = new DatabaseRepository().GetTableColumns(table, languageTableSuffix);
+            //List<TableColumn> tableColumns = new DatabaseRepository().GetTableColumns(table, languageTableSuffix);
             bool isForeignKey = false;
 
             StringBuilder classProperties = new StringBuilder();

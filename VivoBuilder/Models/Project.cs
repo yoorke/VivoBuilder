@@ -20,7 +20,7 @@ namespace VivoBuilder.Models
         {
             this.Name = name;
             this.Path = path;
-            this.ProjectFile = ProjectFile;
+            this.ProjectFile = projectFile;
             this.Namespace = namespaceName;
         }
     }

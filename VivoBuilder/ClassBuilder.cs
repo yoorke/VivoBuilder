@@ -76,7 +76,7 @@ namespace VivoBuilder
                     
                 }
 
-                GeneratedClasses = new ClassGenerator().GenerateClasses(tableList, txtLanguageTableSuffix.Text, txtNamespace.Text);
+                GeneratedClasses = new ClassGenerator().GenerateClasses(tableList, txtLanguageTableSuffix.Text, txtNamespace.Text, txtSolutionFilename.Text);
 
                 showGeneratedClasses(lstDatabaseTables.SelectedIndex);
             }
@@ -141,6 +141,22 @@ namespace VivoBuilder
         {
             ExportOptions objfrmExportOptions = new ExportOptions();
             objfrmExportOptions.ShowDialog();
+        }
+
+        private void btnSelectSolution_Click(object sender, EventArgs e)
+        {
+            string solutionFilename = string.Empty;
+            OpenFileDialog dialog = new OpenFileDialog();
+            if (Properties.Settings.Default.Folder != string.Empty)
+                dialog.FileName = Properties.Settings.Default.Folder;
+
+            if(dialog.ShowDialog() == DialogResult.OK && dialog.FileName != string.Empty)
+            {
+                Properties.Settings.Default.Folder = dialog.FileName;
+                Properties.Settings.Default.Save();
+
+                txtSolutionFilename.Text = dialog.FileName;
+            }
         }
     }
 }
