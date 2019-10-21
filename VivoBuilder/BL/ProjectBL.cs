@@ -31,7 +31,7 @@ namespace VivoBuilder.BL
                     projects[i] = Path.Combine(solutionFolder, projects[i]);
                 projects[i] = Path.GetFullPath(projects[i]);
 
-                projectList.Add(new Project(projectName, projects[i], projectsFile, projectName));
+                projectList.Add(new Project(projectName, projects[i], projectsFile, projectName, i + 1));
             }
 
             return projectList;

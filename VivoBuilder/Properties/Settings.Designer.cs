@@ -154,5 +154,29 @@ namespace VivoBuilder.Properties {
                 this["Folder"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Namespace {
+            get {
+                return ((string)(this["Namespace"]));
+            }
+            set {
+                this["Namespace"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SolutionFilename {
+            get {
+                return ((string)(this["SolutionFilename"]));
+            }
+            set {
+                this["SolutionFilename"] = value;
+            }
+        }
     }
 }

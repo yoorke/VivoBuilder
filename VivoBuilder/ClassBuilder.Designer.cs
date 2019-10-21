@@ -30,6 +30,9 @@
         {
             this.lstDatabaseTables = new System.Windows.Forms.CheckedListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnSelectSolution = new System.Windows.Forms.Button();
+            this.txtSolutionFilename = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.txtLanguageTableSuffix = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -39,12 +42,6 @@
             this.btnGenerateClasses = new System.Windows.Forms.Button();
             this.tbcGeneratedClasses = new System.Windows.Forms.TabControl();
             this.tbpModelClasses = new System.Windows.Forms.TabPage();
-            this.txtModelClasses = new System.Windows.Forms.TextBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.cmbProjectModel = new System.Windows.Forms.ComboBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.txtNamespaceModel = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.tbpModelViewClasses = new System.Windows.Forms.TabPage();
             this.txtModelViewClasses = new System.Windows.Forms.TextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -52,16 +49,28 @@
             this.label6 = new System.Windows.Forms.Label();
             this.txtNamespaceModelView = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.txtSolutionFilename = new System.Windows.Forms.TextBox();
-            this.btnSelectSolution = new System.Windows.Forms.Button();
+            this.txtClassContent = new System.Windows.Forms.TextBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.cmbProjects = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtClassNamespace = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.cmbType = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.btnSelectFramework = new System.Windows.Forms.Button();
+            this.chkCreateBaseClasses = new System.Windows.Forms.CheckBox();
+            this.chkCreateReferences = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tbcGeneratedClasses.SuspendLayout();
-            this.tbpModelClasses.SuspendLayout();
-            this.groupBox3.SuspendLayout();
             this.tbpModelViewClasses.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            this.groupBox5.SuspendLayout();
+            this.groupBox6.SuspendLayout();
             this.SuspendLayout();
             // 
             // lstDatabaseTables
@@ -70,12 +79,13 @@
             this.lstDatabaseTables.FormattingEnabled = true;
             this.lstDatabaseTables.Location = new System.Drawing.Point(0, 0);
             this.lstDatabaseTables.Name = "lstDatabaseTables";
-            this.lstDatabaseTables.Size = new System.Drawing.Size(229, 472);
+            this.lstDatabaseTables.Size = new System.Drawing.Size(229, 479);
             this.lstDatabaseTables.TabIndex = 0;
             this.lstDatabaseTables.SelectedIndexChanged += new System.EventHandler(this.lstDatabaseTables_SelectedIndexChanged);
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.groupBox6);
             this.groupBox1.Controls.Add(this.btnSelectSolution);
             this.groupBox1.Controls.Add(this.txtSolutionFilename);
             this.groupBox1.Controls.Add(this.label7);
@@ -84,12 +94,38 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.txtNamespace);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.groupBox1.Location = new System.Drawing.Point(0, 546);
+            this.groupBox1.Location = new System.Drawing.Point(0, 553);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1127, 100);
+            this.groupBox1.Size = new System.Drawing.Size(1127, 126);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Options";
+            // 
+            // btnSelectSolution
+            // 
+            this.btnSelectSolution.Location = new System.Drawing.Point(555, 31);
+            this.btnSelectSolution.Name = "btnSelectSolution";
+            this.btnSelectSolution.Size = new System.Drawing.Size(36, 20);
+            this.btnSelectSolution.TabIndex = 7;
+            this.btnSelectSolution.Text = "...";
+            this.btnSelectSolution.UseVisualStyleBackColor = true;
+            this.btnSelectSolution.Click += new System.EventHandler(this.btnSelectSolution_Click);
+            // 
+            // txtSolutionFilename
+            // 
+            this.txtSolutionFilename.Location = new System.Drawing.Point(357, 31);
+            this.txtSolutionFilename.Name = "txtSolutionFilename";
+            this.txtSolutionFilename.Size = new System.Drawing.Size(192, 20);
+            this.txtSolutionFilename.TabIndex = 6;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(303, 34);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(48, 13);
+            this.label7.TabIndex = 4;
+            this.label7.Text = "Solution:";
             // 
             // txtLanguageTableSuffix
             // 
@@ -128,7 +164,7 @@
             this.groupBox2.Controls.Add(this.btnExport);
             this.groupBox2.Controls.Add(this.btnGenerateClasses);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.groupBox2.Location = new System.Drawing.Point(0, 472);
+            this.groupBox2.Location = new System.Drawing.Point(0, 479);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(1127, 74);
             this.groupBox2.TabIndex = 2;
@@ -136,7 +172,7 @@
             // 
             // btnExport
             // 
-            this.btnExport.Location = new System.Drawing.Point(1045, 19);
+            this.btnExport.Location = new System.Drawing.Point(1040, 19);
             this.btnExport.Name = "btnExport";
             this.btnExport.Size = new System.Drawing.Size(75, 23);
             this.btnExport.TabIndex = 1;
@@ -158,81 +194,22 @@
             // 
             this.tbcGeneratedClasses.Controls.Add(this.tbpModelClasses);
             this.tbcGeneratedClasses.Controls.Add(this.tbpModelViewClasses);
-            this.tbcGeneratedClasses.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbcGeneratedClasses.Location = new System.Drawing.Point(229, 0);
+            this.tbcGeneratedClasses.Location = new System.Drawing.Point(902, 171);
             this.tbcGeneratedClasses.Name = "tbcGeneratedClasses";
             this.tbcGeneratedClasses.SelectedIndex = 0;
-            this.tbcGeneratedClasses.Size = new System.Drawing.Size(898, 472);
+            this.tbcGeneratedClasses.Size = new System.Drawing.Size(111, 71);
             this.tbcGeneratedClasses.TabIndex = 3;
             this.tbcGeneratedClasses.SelectedIndexChanged += new System.EventHandler(this.tbcGeneratedClasses_SelectedIndexChanged);
             // 
             // tbpModelClasses
             // 
-            this.tbpModelClasses.Controls.Add(this.txtModelClasses);
-            this.tbpModelClasses.Controls.Add(this.groupBox3);
             this.tbpModelClasses.Location = new System.Drawing.Point(4, 22);
             this.tbpModelClasses.Name = "tbpModelClasses";
             this.tbpModelClasses.Padding = new System.Windows.Forms.Padding(3);
-            this.tbpModelClasses.Size = new System.Drawing.Size(890, 446);
+            this.tbpModelClasses.Size = new System.Drawing.Size(103, 45);
             this.tbpModelClasses.TabIndex = 0;
             this.tbpModelClasses.Text = "Model";
             this.tbpModelClasses.UseVisualStyleBackColor = true;
-            // 
-            // txtModelClasses
-            // 
-            this.txtModelClasses.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtModelClasses.Location = new System.Drawing.Point(3, 3);
-            this.txtModelClasses.Multiline = true;
-            this.txtModelClasses.Name = "txtModelClasses";
-            this.txtModelClasses.Size = new System.Drawing.Size(884, 386);
-            this.txtModelClasses.TabIndex = 0;
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.cmbProjectModel);
-            this.groupBox3.Controls.Add(this.label4);
-            this.groupBox3.Controls.Add(this.txtNamespaceModel);
-            this.groupBox3.Controls.Add(this.label3);
-            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.groupBox3.Location = new System.Drawing.Point(3, 389);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(884, 54);
-            this.groupBox3.TabIndex = 1;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Options";
-            // 
-            // cmbProjectModel
-            // 
-            this.cmbProjectModel.FormattingEnabled = true;
-            this.cmbProjectModel.Location = new System.Drawing.Point(319, 23);
-            this.cmbProjectModel.Name = "cmbProjectModel";
-            this.cmbProjectModel.Size = new System.Drawing.Size(324, 21);
-            this.cmbProjectModel.TabIndex = 3;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(270, 26);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(43, 13);
-            this.label4.TabIndex = 2;
-            this.label4.Text = "Project:";
-            // 
-            // txtNamespaceModel
-            // 
-            this.txtNamespaceModel.Location = new System.Drawing.Point(79, 24);
-            this.txtNamespaceModel.Name = "txtNamespaceModel";
-            this.txtNamespaceModel.Size = new System.Drawing.Size(162, 20);
-            this.txtNamespaceModel.TabIndex = 1;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 27);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(67, 13);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "Namespace:";
             // 
             // tbpModelViewClasses
             // 
@@ -241,7 +218,7 @@
             this.tbpModelViewClasses.Location = new System.Drawing.Point(4, 22);
             this.tbpModelViewClasses.Name = "tbpModelViewClasses";
             this.tbpModelViewClasses.Padding = new System.Windows.Forms.Padding(3);
-            this.tbpModelViewClasses.Size = new System.Drawing.Size(890, 446);
+            this.tbpModelViewClasses.Size = new System.Drawing.Size(103, 45);
             this.tbpModelViewClasses.TabIndex = 1;
             this.tbpModelViewClasses.Text = "ModelView";
             this.tbpModelViewClasses.UseVisualStyleBackColor = true;
@@ -261,9 +238,9 @@
             this.groupBox4.Controls.Add(this.txtNamespaceModelView);
             this.groupBox4.Controls.Add(this.label5);
             this.groupBox4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.groupBox4.Location = new System.Drawing.Point(3, 389);
+            this.groupBox4.Location = new System.Drawing.Point(3, -12);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(884, 54);
+            this.groupBox4.Size = new System.Drawing.Size(97, 54);
             this.groupBox4.TabIndex = 1;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Options";
@@ -301,38 +278,152 @@
             this.label5.TabIndex = 0;
             this.label5.Text = "Namespace:";
             // 
-            // label7
+            // txtClassContent
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(303, 34);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(48, 13);
-            this.label7.TabIndex = 4;
-            this.label7.Text = "Solution:";
+            this.txtClassContent.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtClassContent.Location = new System.Drawing.Point(229, 54);
+            this.txtClassContent.Multiline = true;
+            this.txtClassContent.Name = "txtClassContent";
+            this.txtClassContent.Size = new System.Drawing.Size(898, 371);
+            this.txtClassContent.TabIndex = 0;
             // 
-            // txtSolutionFilename
+            // groupBox3
             // 
-            this.txtSolutionFilename.Location = new System.Drawing.Point(357, 31);
-            this.txtSolutionFilename.Name = "txtSolutionFilename";
-            this.txtSolutionFilename.Size = new System.Drawing.Size(192, 20);
-            this.txtSolutionFilename.TabIndex = 6;
+            this.groupBox3.Controls.Add(this.cmbProjects);
+            this.groupBox3.Controls.Add(this.label4);
+            this.groupBox3.Controls.Add(this.txtClassNamespace);
+            this.groupBox3.Controls.Add(this.label3);
+            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.groupBox3.Location = new System.Drawing.Point(229, 425);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(898, 54);
+            this.groupBox3.TabIndex = 1;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Options";
             // 
-            // btnSelectSolution
+            // cmbProjects
             // 
-            this.btnSelectSolution.Location = new System.Drawing.Point(555, 31);
-            this.btnSelectSolution.Name = "btnSelectSolution";
-            this.btnSelectSolution.Size = new System.Drawing.Size(36, 20);
-            this.btnSelectSolution.TabIndex = 7;
-            this.btnSelectSolution.Text = "...";
-            this.btnSelectSolution.UseVisualStyleBackColor = true;
-            this.btnSelectSolution.Click += new System.EventHandler(this.btnSelectSolution_Click);
+            this.cmbProjects.FormattingEnabled = true;
+            this.cmbProjects.Location = new System.Drawing.Point(319, 23);
+            this.cmbProjects.Name = "cmbProjects";
+            this.cmbProjects.Size = new System.Drawing.Size(324, 21);
+            this.cmbProjects.TabIndex = 3;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(270, 26);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(43, 13);
+            this.label4.TabIndex = 2;
+            this.label4.Text = "Project:";
+            // 
+            // txtClassNamespace
+            // 
+            this.txtClassNamespace.Location = new System.Drawing.Point(79, 24);
+            this.txtClassNamespace.Name = "txtClassNamespace";
+            this.txtClassNamespace.Size = new System.Drawing.Size(162, 20);
+            this.txtClassNamespace.TabIndex = 1;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 27);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(67, 13);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "Namespace:";
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.cmbType);
+            this.groupBox5.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox5.Location = new System.Drawing.Point(229, 0);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(898, 54);
+            this.groupBox5.TabIndex = 4;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Set type";
+            // 
+            // cmbType
+            // 
+            this.cmbType.FormattingEnabled = true;
+            this.cmbType.Location = new System.Drawing.Point(13, 19);
+            this.cmbType.Name = "cmbType";
+            this.cmbType.Size = new System.Drawing.Size(256, 21);
+            this.cmbType.TabIndex = 0;
+            this.cmbType.SelectedIndexChanged += new System.EventHandler(this.cmbType_SelectedIndexChanged);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(18, 30);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(102, 13);
+            this.label8.TabIndex = 8;
+            this.label8.Text = "Framework location:";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(126, 27);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(3, 3, 10, 3);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(143, 20);
+            this.textBox1.TabIndex = 9;
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.chkCreateReferences);
+            this.groupBox6.Controls.Add(this.chkCreateBaseClasses);
+            this.groupBox6.Controls.Add(this.btnSelectFramework);
+            this.groupBox6.Controls.Add(this.label8);
+            this.groupBox6.Controls.Add(this.textBox1);
+            this.groupBox6.Dock = System.Windows.Forms.DockStyle.Right;
+            this.groupBox6.Location = new System.Drawing.Point(793, 16);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(331, 107);
+            this.groupBox6.TabIndex = 10;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Export options";
+            // 
+            // btnSelectFramework
+            // 
+            this.btnSelectFramework.Location = new System.Drawing.Point(273, 27);
+            this.btnSelectFramework.Name = "btnSelectFramework";
+            this.btnSelectFramework.Size = new System.Drawing.Size(36, 20);
+            this.btnSelectFramework.TabIndex = 10;
+            this.btnSelectFramework.Text = "...";
+            this.btnSelectFramework.UseVisualStyleBackColor = true;
+            // 
+            // chkCreateBaseClasses
+            // 
+            this.chkCreateBaseClasses.AutoSize = true;
+            this.chkCreateBaseClasses.Location = new System.Drawing.Point(21, 58);
+            this.chkCreateBaseClasses.Name = "chkCreateBaseClasses";
+            this.chkCreateBaseClasses.Size = new System.Drawing.Size(121, 17);
+            this.chkCreateBaseClasses.TabIndex = 11;
+            this.chkCreateBaseClasses.Text = "Create base classes";
+            this.chkCreateBaseClasses.UseVisualStyleBackColor = true;
+            // 
+            // chkCreateReferences
+            // 
+            this.chkCreateReferences.AutoSize = true;
+            this.chkCreateReferences.Location = new System.Drawing.Point(159, 58);
+            this.chkCreateReferences.Name = "chkCreateReferences";
+            this.chkCreateReferences.Size = new System.Drawing.Size(110, 17);
+            this.chkCreateReferences.TabIndex = 12;
+            this.chkCreateReferences.Text = "Create references";
+            this.chkCreateReferences.UseVisualStyleBackColor = true;
             // 
             // ClassBuilder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1127, 646);
+            this.ClientSize = new System.Drawing.Size(1127, 679);
+            this.Controls.Add(this.txtClassContent);
+            this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.tbcGeneratedClasses);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.lstDatabaseTables);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -344,15 +435,17 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.tbcGeneratedClasses.ResumeLayout(false);
-            this.tbpModelClasses.ResumeLayout(false);
-            this.tbpModelClasses.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
             this.tbpModelViewClasses.ResumeLayout(false);
             this.tbpModelViewClasses.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -368,14 +461,14 @@
         private System.Windows.Forms.Button btnGenerateClasses;
         private System.Windows.Forms.TabControl tbcGeneratedClasses;
         private System.Windows.Forms.TabPage tbpModelClasses;
-        private System.Windows.Forms.TextBox txtModelClasses;
+        private System.Windows.Forms.TextBox txtClassContent;
         private System.Windows.Forms.TabPage tbpModelViewClasses;
         private System.Windows.Forms.TextBox txtModelViewClasses;
         private System.Windows.Forms.Button btnExport;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.ComboBox cmbProjectModel;
+        private System.Windows.Forms.ComboBox cmbProjects;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox txtNamespaceModel;
+        private System.Windows.Forms.TextBox txtClassNamespace;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.ComboBox comboBox1;
@@ -385,5 +478,13 @@
         private System.Windows.Forms.Button btnSelectSolution;
         private System.Windows.Forms.TextBox txtSolutionFilename;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.ComboBox cmbType;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.Button btnSelectFramework;
+        private System.Windows.Forms.CheckBox chkCreateReferences;
+        private System.Windows.Forms.CheckBox chkCreateBaseClasses;
     }
 }

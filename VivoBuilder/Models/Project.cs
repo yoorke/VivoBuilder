@@ -8,6 +8,7 @@ namespace VivoBuilder.Models
 {
     public class Project
     {
+        public int ID { get; set; }
         public string Name { get; set; }
         public string Path { get; set; }
         public string ProjectFile { get; set; }
@@ -16,8 +17,9 @@ namespace VivoBuilder.Models
         public Project()
         { }
 
-        public Project(string name, string path, string projectFile, string namespaceName)
+        public Project(string name, string path, string projectFile, string namespaceName, int id)
         {
+            this.ID = id;
             this.Name = name;
             this.Path = path;
             this.ProjectFile = projectFile;

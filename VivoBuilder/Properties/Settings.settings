@@ -35,5 +35,11 @@
     <Setting Name="Folder" Type="System.String" Scope="User">
       <Value Profile="(Default)">temp</Value>
     </Setting>
+    <Setting Name="Namespace" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="SolutionFilename" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

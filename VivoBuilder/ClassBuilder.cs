@@ -8,6 +8,7 @@ using System.Text;
 using System.Linq;
 using VivoBuilder.BL;
 using VivoBuilder.Models;
+using System.Configuration;
 
 namespace VivoBuilder
 {
@@ -26,10 +27,28 @@ namespace VivoBuilder
         {
             this.WindowState = FormWindowState.Maximized;
 
-            GeneratedClasses.Add("ModelClasses", new Dictionary<Table, ClassOptions>());
-            GeneratedClasses.Add("ModelViewClasses", new Dictionary<Table, ClassOptions>());
+            //GeneratedClasses.Add("ModelClasses", new Dictionary<Table, ClassOptions>());
+            //GeneratedClasses.Add("ModelViewClasses", new Dictionary<Table, ClassOptions>());
+
+            foreach (string classesName in ConfigurationManager.AppSettings["generatedClassesNames"].Split(','))
+            { 
+                //GeneratedClasses.Add(classesName, new Dictionary<Table, ClassOptions>());
+                cmbType.Items.Add(classesName);
+            }
 
             loadDataTables();
+
+            if (!String.IsNullOrEmpty(Properties.Settings.Default.Namespace))
+                txtNamespace.Text = Properties.Settings.Default.Namespace;
+            if (!String.IsNullOrEmpty(Properties.Settings.Default.SolutionFilename))
+                txtSolutionFilename.Text = Properties.Settings.Default.SolutionFilename;
+
+            //cmbType.Items.Add("Model");
+            //cmbType.Items.Add("ModelView");
+            //cmbType.Items.Add("BusinessLogic");
+            
+            cmbType.SelectedIndex = 0;
+               
         }
 
         private void loadDataTables()
@@ -78,7 +97,15 @@ namespace VivoBuilder
 
                 GeneratedClasses = new ClassGenerator().GenerateClasses(tableList, txtLanguageTableSuffix.Text, txtNamespace.Text, txtSolutionFilename.Text);
 
+                cmbProjects.DataSource = new ProjectBL().GetProjects(txtSolutionFilename.Text);
+                cmbProjects.DisplayMember = "Name";
+                cmbProjects.ValueMember = "ID";
+
                 showGeneratedClasses(lstDatabaseTables.SelectedIndex);
+
+                Properties.Settings.Default.Namespace = txtNamespace.Text;
+                Properties.Settings.Default.SolutionFilename = txtSolutionFilename.Text;
+                Properties.Settings.Default.Save();
             }
             catch(Exception ex)
             {
@@ -94,13 +121,27 @@ namespace VivoBuilder
 
                 //int index = 0;
                 //int classIndex = 0;
-                foreach (KeyValuePair<string, Dictionary<Table, ClassOptions>> classList in GeneratedClasses)
+                //foreach (KeyValuePair<string, Dictionary<Table, ClassOptions>> classList in GeneratedClasses)
+                //{
+                //if (classList.Value.ContainsKey(((Table)lstDatabaseTables.Items[index])))
+                if (cmbType.SelectedItem != null && GeneratedClasses.ContainsKey(cmbType.SelectedItem.ToString() + "Classes") && GeneratedClasses[cmbType.SelectedItem + "Classes"].ContainsKey((Table)lstDatabaseTables.Items[index]))
                 {
-                    if (classList.Value.ContainsKey(((Table)lstDatabaseTables.Items[index])))
-                        ((TextBox)((TabPage)tbcGeneratedClasses.TabPages["tbp" + classList.Key]).Controls.Find("txt" + classList.Key, true)[0]).Text = classList.Value[((Table)lstDatabaseTables.Items[index])].ClassContent;
+                        //ClassOptions classOptions = classList.Value[((Table)lstDatabaseTables.Items[index])];
+                        ClassOptions classOptions = GeneratedClasses[cmbType.SelectedItem.ToString() + "Classes"][((Table)lstDatabaseTables.Items[index])];
+                        //((TextBox)((TabPage)tbcGeneratedClasses.TabPages["tbp" + classList.Key]).Controls.Find("txt" + classList.Key, true)[0]).Text = classList.Value[((Table)lstDatabaseTables.Items[index])].ClassContent;
+                        txtClassContent.Text = classOptions.ClassContent;
+                        txtClassNamespace.Text = classOptions.Namespace;
+                        //cmbProjects.SelectedItem = classOptions.Project;
+                        cmbProjects.SelectedValue = classOptions.Project.ID;
+                }
+                else
+                {
+                    txtClassContent.Text = string.Empty;
+                    cmbProjects.SelectedIndex = -1;
+                }
 
                     //classIndex++;
-                }
+                //}
             }
             catch (Exception ex)
             {
@@ -139,8 +180,8 @@ namespace VivoBuilder
 
         private void btnExport_Click(object sender, EventArgs e)
         {
-            ExportOptions objfrmExportOptions = new ExportOptions();
-            objfrmExportOptions.ShowDialog();
+            //ExportOptions objfrmExportOptions = new ExportOptions();
+            //objfrmExportOptions.ShowDialog();
         }
 
         private void btnSelectSolution_Click(object sender, EventArgs e)
@@ -157,6 +198,11 @@ namespace VivoBuilder
 
                 txtSolutionFilename.Text = dialog.FileName;
             }
+        }
+
+        private void cmbType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            showGeneratedClasses(lstDatabaseTables.SelectedIndex);
         }
     }
 }
