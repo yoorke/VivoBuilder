@@ -74,7 +74,7 @@ namespace VivoBuilder.BL
             ClassOptions classOptions = new ClassOptions();
             classOptions
                 .SetClassName(new Common().ToPascalCase(table.Name))
-                .SetNamespace(namespaceName + ".Models")
+                .SetNamespace((table.Schema.Equals("dbo") ? namespaceName : new Common().ToPascalCase(table.Schema)) + ".Models")
                 .SetSchema(table.Schema)
                 .SetProject(projects.Find(project => (project.Name.ToLower().Contains("models") && table.Schema.ToLower() == "dbo") || (project.Name.ToLower().Contains("models") && project.Name.ToLower().Contains(table.Schema.ToLower()))));
 
@@ -112,9 +112,9 @@ namespace VivoBuilder.BL
         {
             ClassOptions classOptions = new ClassOptions();
             classOptions.SetClassName(new Common().ToPascalCase(table.Name) + "View")
-                .SetNamespace(namespaceName + ".Models")
+                .SetNamespace((table.Schema.Equals("dbo") ?  namespaceName : new Common().ToPascalCase(table.Schema)) + ".Models")
                 .SetSchema(table.Schema)
-                .SetProject(projects.Find(project => (project.Name.Contains("Models") && table.Schema == "dbo") || (project.Name.Contains("Models") && project.Name.Contains(table.Schema))));
+                .SetProject(projects.Find(project => (project.Name.ToLower().Contains("models") && table.Schema.ToLower() == "dbo") || (project.Name.ToLower().Contains("models") && project.Name.ToLower().Contains(table.Schema.ToLower()))));
 
             Dictionary<string, string> classRT = new Dictionary<string, string>();
             Dictionary<string, string> propertyRT = new Dictionary<string, string>();            
@@ -149,9 +149,9 @@ namespace VivoBuilder.BL
         {
             ClassOptions classOptions = new ClassOptions();
             classOptions.SetClassName("I" + new Common().ToPascalCase(table.Name) + suffix + "BL")
-                .SetNamespace(namespaceName + ".BusinessLogic.Interfaces")
+                .SetNamespace((table.Schema.Equals("dbo") ? namespaceName : new Common().ToPascalCase(table.Schema)) + ".BusinessLogic.Interfaces")
                 .SetSchema(table.Schema)
-                .SetProject(projects.Find(project => (project.Name.Contains("BusinessLogic.Interfaces") && table.Schema == "dbo") || (project.Name.Contains("BusinessLogic.Interfaces") && project.Name.Contains(table.Schema))));
+                .SetProject(projects.Find(project => (project.Name.ToLower().Contains("businesslogic.interfaces") && table.Schema.ToLower() == "dbo") || (project.Name.ToLower().Contains("businesslogic.interfaces") && project.Name.ToLower().Contains(table.Schema.ToLower()))));
 
             Dictionary<string, string> classRT = new Dictionary<string, string>();
             //Dictionary<string, string> propertyRT = new Dictionary<string, string>();
@@ -159,7 +159,7 @@ namespace VivoBuilder.BL
             classRT.Add("NAMESPACE", classOptions.Namespace);
             classRT.Add("CLASS-NAME", classOptions.ClassName);
             classRT.Add("MODEL-NAME", new Common().ToPascalCase(table.Name) + suffix);
-            classRT.Add("MODEL-PROJECT-NAME", namespaceName + ".Models");
+            classRT.Add("MODEL-PROJECT-NAME", (table.Schema.Equals("dbo") ? namespaceName : new Common().ToPascalCase(table.Schema)) + ".Models");
 
             classOptions.SetClassContent(new TemplateHandler().GenerateContent(classRT, "BusinessLogicInterfaceTemplate"));
             
@@ -170,9 +170,9 @@ namespace VivoBuilder.BL
         {
             ClassOptions classOptions = new ClassOptions();
             classOptions.SetClassName(new Common().ToPascalCase(table.Name) + suffix + "BL")
-                .SetNamespace(namespaceName + ".BusinessLogic")
+                .SetNamespace((table.Schema.Equals("dbo") ? namespaceName : new Common().ToPascalCase(table.Schema)) + ".BusinessLogic")
                 .SetSchema(table.Schema)
-                .SetProject(projects.Find(project => (project.Name.Contains("BusinessLogic") && table.Schema == "dbo") || (project.Name.Contains("BusinessLogic") && project.Name.Contains(table.Schema))));
+                .SetProject(projects.Find(project => (project.Name.ToLower().Contains("businesslogic") && table.Schema.ToLower() == "dbo") || (project.Name.ToLower().Contains("businesslogic") && project.Name.ToLower().Contains(table.Schema.ToLower()))));
 
             Dictionary<string, string> classRT = new Dictionary<string, string>();
 
@@ -180,8 +180,8 @@ namespace VivoBuilder.BL
             classRT.Add("CLASS-NAME", classOptions.ClassName);
             classRT.Add("MODEL-NAME", new Common().ToPascalCase(table.Name) + suffix);
             classRT.Add("INTERFACE-NAME", "I" + classOptions.ClassName);
-            classRT.Add("MODEL-PROJECT-NAME", namespaceName + ".Models");
-            classRT.Add("BUSINESS-LOGIC-INTERFACES-PROJECT-NAME", namespaceName + ".BusinessLogic.Interfaces");
+            classRT.Add("MODEL-PROJECT-NAME", (table.Schema.Equals("dbo") ? namespaceName : new Common().ToPascalCase(table.Schema)) + ".Models");
+            classRT.Add("BUSINESS-LOGIC-INTERFACES-PROJECT-NAME", (table.Schema.Equals("dbo") ? namespaceName : new Common().ToPascalCase(table.Schema)) + ".BusinessLogic.Interfaces");
 
             classOptions.SetClassContent(new TemplateHandler().GenerateContent(classRT, "BusinessLogicTemplate"));
 
@@ -192,16 +192,16 @@ namespace VivoBuilder.BL
         {
             ClassOptions classOptions = new ClassOptions();
             classOptions.SetClassName(new Common().ToPascalCase(table.Name) + "Controller")
-                .SetNamespace(namespaceName + ".WebAPI.Controllers")
                 .SetSchema(table.Schema)
                 .SetProject(projects.Find(project => project.Name.Contains("WebApi") || project.Name.ToLower().EndsWith("api")))
+                .SetNamespace(namespaceName + (classOptions.Project.Name.Contains(".") ? classOptions.Project.Name.Substring(classOptions.Project.Name.IndexOf('.')) : "WebAPI") + ".Controllers")
                 .SetSufix("Controllers");
 
             Dictionary<string, string> classRT = new Dictionary<string, string>();
 
             //classRT.Add("PROJECT-NAME", table.Schema.Equals("dbo") ? namespaceName + string.Empty : new Common().ToPascalCase(table.Schema));
-            classRT.Add("PROJECT-NAME", namespaceName);
-            classRT.Add("NAMESPACE", namespaceName + ".WebAPI");
+            classRT.Add("PROJECT-NAME", (table.Schema.Equals("dbo") ? namespaceName : new Common().ToPascalCase(table.Schema)));
+            classRT.Add("NAMESPACE", namespaceName + (classOptions.Project.Name.Contains(".") ? classOptions.Project.Name.Substring(classOptions.Project.Name.IndexOf('.')) : ".WebAPI"));
             classRT.Add("CLASS-NAME", classOptions.ClassName);
             classRT.Add("IBL-NAME", "I" + new Common().ToPascalCase(table.Name) + "BL");
             classRT.Add("IBL-VIEW-NAME", "I" + new Common().ToPascalCase(table.Name) + "ViewBL");
