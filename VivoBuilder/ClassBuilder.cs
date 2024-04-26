@@ -203,7 +203,7 @@ namespace VivoBuilder
                 }
             }
 
-            MessageBox.Show("Export successfull");
+            MessageBox.Show("Export successfull", "Export");
         }
 
         private void btnSelectSolution_Click(object sender, EventArgs e)
