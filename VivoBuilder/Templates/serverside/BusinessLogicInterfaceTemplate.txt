@@ -1,0 +1,12 @@
+﻿using System;
+using Base.Models;
+using Base.BusinessLogic.Interfaces;
+using [MODEL-PROJECT-NAME];
+
+namespace [NAMESPACE]
+{
+	public interface [CLASS-NAME] : IBaseBL<[MODEL-NAME]>
+	{
+
+	}
+}

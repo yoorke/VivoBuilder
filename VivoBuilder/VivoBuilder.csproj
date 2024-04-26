@@ -49,6 +49,7 @@
     <Compile Include="BL\ClassGenerator.cs" />
     <Compile Include="BL\Common.cs" />
     <Compile Include="BL\DatabaseRepository.cs" />
+    <Compile Include="BL\ExportHandler.cs" />
     <Compile Include="BL\ProjectBL.cs" />
     <Compile Include="ClassBuilder.cs">
       <SubType>Form</SubType>
@@ -114,9 +115,21 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Templates\serverside\BusinessLogicInterfaceTemplate.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\serverside\BusinessLogicTemplate.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\serverside\ControllerTemplate.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\serverside\LangugageTableJoinTemplate.txt" />
     <Content Include="Templates\serverside\ModelPropertyTemplate.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -127,6 +140,15 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Templates\serverside\ModelViewTemplate.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\serverside\SpNamesTemplate.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\serverside\StoreProceduresTemplate.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\serverside\StoreProcedureParametersTemplate.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

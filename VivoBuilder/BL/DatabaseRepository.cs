@@ -45,7 +45,7 @@ namespace VivoBuilder.BL
                         dtSchema = conn.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, new Object[] { null, null, null, "TABLE" });
                         Random random = new Random();
 
-                        for (int i = 0; i < dtSchema.Rows.Count - 1; i++)
+                        for (int i = 0; i <= dtSchema.Rows.Count - 1; i++)
                             tables.Add(new Table(dtSchema.Rows[i].ItemArray[1].ToString(), dtSchema.Rows[i].ItemArray[2].ToString(), random));
 
                         
@@ -85,7 +85,7 @@ namespace VivoBuilder.BL
                 {
                     if (!excludedColumns.Contains(row["COLUMN_NAME"].ToString()))
                     {
-                        DataTable columnData = getTableColumnData(row["COLUMN_NAME"].ToString(), table.Name);
+                        DataTable columnData = getTableColumnData(row["COLUMN_NAME"].ToString(), row["TABLE_SCHEMA"].ToString(), row["TABLE_NAME"].ToString());
                         columns.Add(new TableColumn(
                                             row["COLUMN_NAME"].ToString(),
                                             row["TABLE_NAME"].ToString(),
@@ -101,14 +101,14 @@ namespace VivoBuilder.BL
             return columns;
         }
 
-        private DataTable getTableColumnData(string columnName, string tableName)
+        private DataTable getTableColumnData(string columnName, string tableSchema, string tableName)
         {
             DataTable schemaTable;
             using (OleDbConnection conn = new OleDbConnection(Properties.Settings.Default.ConnString))
             {
                 conn.Open();
 
-                using (OleDbCommand comm = new OleDbCommand("SELECT [" + columnName + "] FROM [" + tableName + "]", conn))
+                using (OleDbCommand comm = new OleDbCommand("SELECT [" + columnName + "] FROM [" + tableSchema + "].[" + tableName + "]", conn))
                 {
                     using (OleDbDataReader reader = comm.ExecuteReader(CommandBehavior.KeyInfo))
                     {
@@ -126,7 +126,7 @@ namespace VivoBuilder.BL
                 case "System.String": return "string";
                 case "System.Boolean": return "bool";
                 case "System.Int32": return "int";
-                case "System.DateTime": return "datetime";
+                case "System.DateTime": return "DateTime";
                 case "System.Double": return "double";
                 case "System.Decimal": return "decimal";
                 default: return datatype;

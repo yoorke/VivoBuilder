@@ -9,6 +9,7 @@ using System.Linq;
 using VivoBuilder.BL;
 using VivoBuilder.Models;
 using System.Configuration;
+using System.Xml;
 
 namespace VivoBuilder
 {
@@ -95,11 +96,13 @@ namespace VivoBuilder
                     
                 }
 
-                GeneratedClasses = new ClassGenerator().GenerateClasses(tableList, txtLanguageTableSuffix.Text, txtNamespace.Text, txtSolutionFilename.Text);
-
                 cmbProjects.DataSource = new ProjectBL().GetProjects(txtSolutionFilename.Text);
                 cmbProjects.DisplayMember = "Name";
                 cmbProjects.ValueMember = "ID";
+
+                GeneratedClasses = new ClassGenerator().GenerateClasses(tableList, txtLanguageTableSuffix.Text, txtNamespace.Text, txtSolutionFilename.Text);
+
+                
 
                 showGeneratedClasses(lstDatabaseTables.SelectedIndex);
 
@@ -132,7 +135,7 @@ namespace VivoBuilder
                         txtClassContent.Text = classOptions.ClassContent;
                         txtClassNamespace.Text = classOptions.Namespace;
                         //cmbProjects.SelectedItem = classOptions.Project;
-                        cmbProjects.SelectedValue = classOptions.Project.ID;
+                        cmbProjects.SelectedValue = classOptions.Project != null ? classOptions.Project.ID : -1;
                 }
                 else
                 {
@@ -182,6 +185,25 @@ namespace VivoBuilder
         {
             //ExportOptions objfrmExportOptions = new ExportOptions();
             //objfrmExportOptions.ShowDialog();
+
+            ProjectBL projectBL = new ProjectBL();
+            foreach (string classType in ConfigurationManager.AppSettings["generatedClassesNames"].Split(','))
+            {
+                if(!classType.Equals("SpNames"))
+                    foreach(KeyValuePair<Table, ClassOptions> generatedClass in GeneratedClasses[classType + "Classes"])
+                    {
+                        projectBL.AddFileToProject(((ClassOptions)generatedClass.Value));
+                    }
+                else
+                {
+                    foreach(KeyValuePair<Table, ClassOptions> generatedClass in GeneratedClasses[classType + "Classes"])
+                    {
+                        projectBL.SaveSpNames(generatedClass.Value);
+                    }
+                }
+            }
+
+            MessageBox.Show("Export successfull");
         }
 
         private void btnSelectSolution_Click(object sender, EventArgs e)
@@ -203,6 +225,16 @@ namespace VivoBuilder
         private void cmbType_SelectedIndexChanged(object sender, EventArgs e)
         {
             showGeneratedClasses(lstDatabaseTables.SelectedIndex);
+        }
+
+        private void cmbProjects_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(cmbType.SelectedItem != null
+                && GeneratedClasses.ContainsKey(cmbType.SelectedItem.ToString() + "Classes")
+                && GeneratedClasses[cmbType.SelectedItem.ToString() + "Classes"].ContainsKey((Table)lstDatabaseTables.Items[lstDatabaseTables.SelectedIndex]))
+            {
+                GeneratedClasses[cmbType.SelectedItem.ToString() + "Classes"][(Table)lstDatabaseTables.Items[lstDatabaseTables.SelectedIndex]].Project = ((Project)cmbProjects.SelectedItem).ID != -1 ? (VivoBuilder.Models.Project)cmbProjects.SelectedItem : null;
+            }
         }
     }
 }

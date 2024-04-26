@@ -14,6 +14,7 @@ namespace VivoBuilder.Models
         public string ClassContent { get; set; }
         public string Schema { get; set; }
         //public Table Table { get; set; }
+        public string Sufix { get; set; } = string.Empty;
 
         public ClassOptions()
         {
@@ -55,5 +56,16 @@ namespace VivoBuilder.Models
             //this.Table = table;
             //return this;
         //}
+
+        public ClassOptions SetSufix(string sufix)
+        {
+            this.Sufix = sufix;
+            return this;
+        }
+
+        public string ClassFilename
+        {
+            get { return this.Project.Path.Substring(0, this.Project.Path.LastIndexOf("\\") + 1) + (!string.IsNullOrWhiteSpace(this.Sufix) ? this.Sufix + "\\" : string.Empty) + ClassName + ".cs"; }
+        }
     }
 }

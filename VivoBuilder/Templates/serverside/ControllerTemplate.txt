@@ -1,0 +1,66 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Net;
+using Base.Models;
+using Base.BusinessLogic.Interfaces.Authorization;
+using [PROJECT-NAME].BusinessLogic.Interfaces;
+using [PROJECT-NAME].Models;
+using System.Web.Http;
+
+namespace [NAMESPACE].Controllers
+{
+	public class [CLASS-NAME] : BaseController
+	{
+		private [IBL-NAME] _service;
+		private [IBL-VIEW-NAME] _serviceView;
+
+		public [CLASS-NAME]([IBL-NAME] service, [IBL-VIEW-NAME] serviceView)
+		{
+			this._service = service;
+			this._serviceView = serviceView;
+		}
+
+		public IEnumerable<[MODEL-VIEW-NAME]> Get()
+		{
+			return _serviceView.GetAll();
+		}
+
+		public [MODEL-NAME] Get(int id)
+		{
+			return _service.GetByID(id);
+		}
+
+		public IHttpActionResult Post([FromBody] [MODEL-NAME] item, [Inject] IUserAuthorizationBL userAuthorizationBL)
+		{
+			if(!ModelState.IsValid)
+				return BadRequest(ModelState);
+
+			if(!base.HasRights("[MODEL-NAME-TOLOWER]", "add", userAuthorizationBL))
+				throw new HttpResponseException(HttpStatusCode.Unauthorized);
+
+			item.ID = _service.Save(item);
+			return Ok(_serviceView.GetByID(item.ID));
+		}
+
+		public IHttpActionResult Put(int id, [FromBody] [MODEL-NAME] item, [Inject] IUserAuthorizationBL userAuthorizationBL)
+		{
+			if(!ModelState.IsValid)
+				return BadRequest(ModelState);
+
+			if(!base.HasRights("[MODEL-NAME-TOLOWER]", "edit", userAuthorizationBL))
+				throw new HttpResponseException(HttpStatusCode.Unauthorized);
+
+			_service.Save(item);
+			return Ok(_serviceView.GetByID(item.ID));
+		}
+
+		public IHttpActionResult Delete(int id, [Inject] IUserAuthorizationBL userAuthorization)
+		{
+			if(!base.HasRights("[MODEL-NAME-TOLOWER]", "delete", userAuthorization))
+				throw new HttpResponseException(HttpStatusCode.Unauthorized);
+
+			_service.Delete(id);
+			return Ok(id);
+		}
+	}
+}
