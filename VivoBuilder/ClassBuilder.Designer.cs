@@ -35,7 +35,7 @@
             this.chkCreateBaseClasses = new System.Windows.Forms.CheckBox();
             this.btnSelectFramework = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtFrameworkLocation = new System.Windows.Forms.TextBox();
             this.btnSelectSolution = new System.Windows.Forms.Button();
             this.txtSolutionFilename = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -107,7 +107,7 @@
             this.groupBox6.Controls.Add(this.chkCreateBaseClasses);
             this.groupBox6.Controls.Add(this.btnSelectFramework);
             this.groupBox6.Controls.Add(this.label8);
-            this.groupBox6.Controls.Add(this.textBox1);
+            this.groupBox6.Controls.Add(this.txtFrameworkLocation);
             this.groupBox6.Dock = System.Windows.Forms.DockStyle.Right;
             this.groupBox6.Location = new System.Drawing.Point(793, 16);
             this.groupBox6.Name = "groupBox6";
@@ -144,6 +144,7 @@
             this.btnSelectFramework.TabIndex = 10;
             this.btnSelectFramework.Text = "...";
             this.btnSelectFramework.UseVisualStyleBackColor = true;
+            this.btnSelectFramework.Click += new System.EventHandler(this.btnSelectFramework_Click);
             // 
             // label8
             // 
@@ -154,13 +155,13 @@
             this.label8.TabIndex = 8;
             this.label8.Text = "Framework location:";
             // 
-            // textBox1
+            // txtFrameworkLocation
             // 
-            this.textBox1.Location = new System.Drawing.Point(126, 27);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(3, 3, 10, 3);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(143, 20);
-            this.textBox1.TabIndex = 9;
+            this.txtFrameworkLocation.Location = new System.Drawing.Point(126, 27);
+            this.txtFrameworkLocation.Margin = new System.Windows.Forms.Padding(3, 3, 10, 3);
+            this.txtFrameworkLocation.Name = "txtFrameworkLocation";
+            this.txtFrameworkLocation.Size = new System.Drawing.Size(143, 20);
+            this.txtFrameworkLocation.TabIndex = 9;
             // 
             // btnSelectSolution
             // 
@@ -345,6 +346,7 @@
             this.txtClassContent.Location = new System.Drawing.Point(229, 54);
             this.txtClassContent.Multiline = true;
             this.txtClassContent.Name = "txtClassContent";
+            this.txtClassContent.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtClassContent.Size = new System.Drawing.Size(898, 371);
             this.txtClassContent.TabIndex = 0;
             // 
@@ -481,7 +483,7 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.ComboBox cmbType;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtFrameworkLocation;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.Button btnSelectFramework;

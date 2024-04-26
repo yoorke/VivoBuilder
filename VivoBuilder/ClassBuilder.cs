@@ -236,5 +236,10 @@ namespace VivoBuilder
                 GeneratedClasses[cmbType.SelectedItem.ToString() + "Classes"][(Table)lstDatabaseTables.Items[lstDatabaseTables.SelectedIndex]].Project = ((Project)cmbProjects.SelectedItem).ID != -1 ? (VivoBuilder.Models.Project)cmbProjects.SelectedItem : null;
             }
         }
+
+        private void btnSelectFramework_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
